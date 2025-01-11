@@ -13,7 +13,7 @@ alembicArgs = [
 ]
 
 
-def handler(event, content)->None:
+def handler(event, content) -> None:
     logger.info("Starting Migration")
     alembic.config.main(argv=alembicArgs)
     logger.info("Migration Complete")
