@@ -1,0 +1,41 @@
+services:
+  backend:
+    build:
+      dockerfile: deployment/docker/local/Dockerfile
+    ports:
+      - 8000:80
+    environment:
+      - PG_USER=pguser
+      - PG_PASSWORD=password
+      - PG_DOMAIN=db
+      - PG_DATABASE=companion
+      - PG_PORT=5432
+    volumes:
+      - ./src:/code/app
+      - ./api_logs:/tmp
+  migrations:
+    build:
+      dockerfile: deployment/docker/local/Dockerfile
+    environment:
+      - PG_USER=pguser
+      - PG_PASSWORD=password
+      - PG_DOMAIN=db
+      - PG_DATABASE=companion
+      - PG_PORT=5432
+    entrypoint:
+      - /usr/local/bin/python
+      - migrations_handler.py
+    volumes:
+      - ./src:/code/app
+      - ./api_logs:/tmp
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=companion
+      - POSTGRES_USER=pguser
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
