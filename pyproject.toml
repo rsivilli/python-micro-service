@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "PACKAGE_NAME"
+version = "0.1.0"
+description = ""
+authors = ["Robert Sivilli <robert.sivilli@gmail.com>"]
+readme = "README.md"
+
+[tool.black]
+line-length = 120
+target-version = ["py310", "py311"]  # Adjust to your supported versions
+skip-string-normalization = false
+
+[tool.isort]
+profile = "black"
+line_length = 120
+known_third_party = ["pydantic"]  # Add "pydantic" here
+
+[tool.mypy]
+files = ["src", "tests"]  # Adjust to your source directories
+ignore_missing_imports = true
+strict_optional = true
+check_untyped_defs = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+show_error_codes = true
+pretty = true
+plugins = ["pydantic.mypy"]
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.10.2"
+pydantic-settings = "^2.6.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.0.1"
+pytest = "^8.3.3"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+mypy = "^1.13.0"
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,6 @@
+# environment variables
+.env.local
+
+#Caches 
+__pycache__
+.mypy_cache
